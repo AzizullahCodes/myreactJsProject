@@ -1,43 +1,44 @@
-// import React from "react";
-// import { Link } from "react-router-dom";
-// const Navbar = ()=>{
-//     return(
-//         <div>
-//             <ul>
-//                 <li><Link to='/'>Home</Link></li>
-//                 <li><Link to='/about'>About</Link></li>
-//                 <li><Link to='/contact'>Contact</Link></li>
-//             </ul>
-//         </div>
-//     )
-// }
-// export default Navbar;
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./navbar.css";
 
 const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <nav className="navbar">
+
+      {/* Logo */}
       <div className="logo">
         <h2>AuthApp</h2>
       </div>
 
-      <ul className="nav-links">
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/about">About</Link></li>
-        <li><Link to="/contact">Contact</Link></li>
+      {/* Hamburger */}
+      <div
+        className="hamburger"
+        onClick={() => setMenuOpen(!menuOpen)}
+      >
+        ☰
+      </div>
+
+      {/* Links */}
+      <ul className={`nav-links ${menuOpen ? "active" : ""}`}>
+        <li><Link to="/" onClick={() => setMenuOpen(false)}>Home</Link></li>
+        <li><Link to="/about" onClick={() => setMenuOpen(false)}>About</Link></li>
+        <li><Link to="/contact" onClick={() => setMenuOpen(false)}>Contact</Link></li>
       </ul>
 
-      <div className="auth-buttons">
-        <Link to="/login" className="login-btn">
+      {/* Auth Buttons */}
+      <div className={`auth-buttons ${menuOpen ? "active" : ""}`}>
+        <Link to="/login" className="login-btn" onClick={() => setMenuOpen(false)}>
           Login
         </Link>
 
-        <Link to="/signup" className="signup-btn">
+        <Link to="/signup" className="signup-btn" onClick={() => setMenuOpen(false)}>
           Sign Up
         </Link>
       </div>
+
     </nav>
   );
 };

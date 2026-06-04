@@ -1,69 +1,98 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-const SignUp = ()=>{
-    const [name,setName] = useState('');
-    const [email,setEmail] = useState('');
-    const [password,setPassword] = useState('');
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import "./signup.css";
 
-     const navigate = useNavigate('');
-    // userHandler function
-    const userHandler = ()=>{
-       
-        //create an object for storing data in localstorae 
-        let obj = {
-            name,
-            email,
-            password
-        }
-        console.log(obj)
-        // handling localstorage 
-        let getUser = JSON.parse(localStorage.getItem('user'))||null;
-        if(!getUser){
-            localStorage.setItem('user',JSON.stringify(obj));
-            alert('succefully signup')
-        }
-        else{
-            alert('user already existed');
-            navigate('/login');
-           
-            
-        }
-        console.log(getUser)
+const SignUp = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-        //clear all inputs;
-        setName('');
-        setEmail('');
-        setPassword('');
+  const navigate = useNavigate("");
+
+  const userHandler = () => {
+    let obj = {
+      name,
+      email,
+      password,
+    };
+
+    let getUser = JSON.parse(localStorage.getItem("user")) || null;
+
+    if (!getUser) {
+      localStorage.setItem("user", JSON.stringify(obj));
+      alert("succefully signup");
+      navigate('/login')
+    } else {
+      alert("user already existed");
+      navigate("/login");
     }
-    
-    return(
-        
-        <div>
-            <h1>I am sign up page</h1>
-            <div>
-                <label htmlFor="Name">Name</label>
-                <input type="text" placeholder="Enter your name" 
-                onChange={(e)=>setName(e.target.value)}
-                value={name}/>
-            </div>
-            <div>
-                <label htmlFor="email">Email</label>
-                <input type="email" placeholder="Enter your email" 
-                 onChange={(e)=>setEmail(e.target.value)}
-                 value={email}/>
-            </div>
-            <div>
-                <label htmlFor="password">password</label>
-                <input type="password" placeholder="Enter your password" 
-                 onChange={(e)=>setPassword(e.target.value)} 
-                 value={password}/>
-            </div>
-            <button onClick={userHandler}>signup</button>
-            <div>
-                <a href="">Have you already an account?</a>
-            </div>
+
+    setName("");
+    setEmail("");
+    setPassword("");
+  };
+
+  return (
+    <div className="signupPage">
+      <div className="signupContainer">
+        <div className="logo">
+          <h1>DilsayBuy</h1>
         </div>
-        
-    )
-}
+
+        <div className="signupCard">
+          <h2>Create Account</h2>
+
+          <div className="field">
+            <label>Name</label>
+            <input
+              type="text"
+              placeholder="Enter your full name"
+              onChange={(e) => setName(e.target.value)}
+              value={name}
+            />
+          </div>
+
+          <div className="field">
+            <label>Email</label>
+            <input
+              type="email"
+              placeholder="Enter your email"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              autoComplete="new-email"
+            />
+          </div>
+
+          <div className="field">
+            <label>Password</label>
+            <input
+              type="password"
+              placeholder="Enter your password"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              autoComplete="new-password"
+            />
+          </div>
+
+          <button className="signupBtn" onClick={userHandler}>
+            Create your account
+          </button>
+
+          <p className="terms">
+            By creating an account, you agree to DilsayBuy's
+            Terms of Service and Privacy Policy.
+          </p>
+
+          <hr />
+
+          <div className="loginSection">
+            <span>Already have an account?</span>
+            <Link to="/login"> Sign In</Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export default SignUp;
