@@ -1,7 +1,17 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 const Home = ()=>{
+    const navigate = useNavigate('');
+    //logoutFun
+    const logoutFunction = ()=>{
+        localStorage.removeItem('user');
+        navigate('/login')
+    }
     return(
-        <h1>I am home page</h1>
+       <div>
+         <h1>I am home page</h1>
+        <button onClick={logoutFunction}>log out</button>
+       </div>
     )
 }
 export default Home;
