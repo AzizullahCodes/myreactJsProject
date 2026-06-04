@@ -59,7 +59,11 @@ const SignUp = ()=>{
                  value={password}/>
             </div>
             <button onClick={userHandler}>signup</button>
+            <div>
+                <a href="">Have you already an account?</a>
+            </div>
         </div>
+        
     )
 }
 export default SignUp;
